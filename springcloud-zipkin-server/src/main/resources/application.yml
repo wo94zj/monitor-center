@@ -1,0 +1,27 @@
+server:
+  port: 9411
+
+spring:
+  application:
+    name: springcloud-zipkin-server
+  cloud:
+    config:
+      name: ${spring.application.name}
+      discovery:
+        service-id: zipkin
+        enabled: true
+      #username:
+      #password:
+
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:1110/eureka/
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false #Prometheus requires that all meters with the same name have the same set of tag keys. There is already an existing meter named 'http_server_requests_seconds' containing tag keys [method, status, uri].
